@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scalezix EMS</title>
+
+  <style>
+    body { margin:0; font-family:Arial; display:flex; background:#eef1f5; }
+
+    .sidebar {
+      width:230px; background:#2c2f48; color:white; height:100vh; padding:20px;
+    }
+
+    .sidebar h2 { text-align:center; }
+
+    .sidebar a {
+      display:block; padding:12px; margin:5px 0;
+      color:white; text-decoration:none; border-radius:5px; cursor:pointer;
+    }
+
+    .sidebar a:hover { background:#44476a; }
+
+    .main { flex:1; }
+
+    .navbar {
+      background:linear-gradient(90deg,#6a11cb,#2575fc);
+      color:white; padding:15px; font-size:20px; font-weight:bold;
+    }
+
+    .content { padding:20px; }
+
+    .section { display:none; }
+    .active { display:block; }
+
+    .cards { display:flex; gap:15px; margin-bottom:20px; }
+
+    .card {
+      flex:1; padding:20px; border-radius:10px; color:white; text-align:center;
+    }
+
+    .card:nth-child(1){ background:#6a11cb; }
+    .card:nth-child(2){ background:#2575fc; }
+    .card:nth-child(3){ background:#00c6ff; }
+
+    table {
+      width:100%; background:white; border-collapse:collapse; margin-top:20px;
+    }
+
+    th {
+      background:#6a11cb; color:white; padding:10px;
+    }
+
+    td {
+      padding:10px; text-align:center; border-bottom:1px solid #ddd;
+    }
+
+    .form-box {
+      background:white; padding:20px; border-radius:10px; max-width:500px;
+    }
+
+    input, select, textarea {
+      width:100%; padding:8px; margin:5px 0 10px;
+    }
+
+    .btn-group { display:flex; gap:10px; }
+
+    .btn { padding:10px; border:none; cursor:pointer; flex:1; color:white; }
+
+    .submit { background:#2575fc; }
+    .cancel { background:#e74c3c; }
+
+    /* Calendar */
+    .calendar {
+      background:white; padding:20px; border-radius:10px; width:350px;
+    }
+
+    .calendar-header {
+      display:flex; justify-content:space-between; align-items:center;
+    }
+
+    .days, .dates {
+      display:grid; grid-template-columns:repeat(7,1fr); text-align:center;
+    }
+
+    .days div { font-weight:bold; padding:10px; }
+
+    .dates div {
+      padding:10px; margin:2px; background:#ddd; border-radius:5px;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="sidebar">
+  <h2>EMS</h2>
+  <a onclick="show('dashboard')">Dashboard</a>
+  <a onclick="show('timesheet')">Timesheet</a>
+  <a onclick="show('leave')">Apply Leave</a>
+  <a onclick="show('calendar')">Calendar</a>
+</div>
+
+<div class="main">
+
+  <div class="navbar">SCALEZIX TECHNOLOGIES</div>
+
+  <div class="content">
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="section active">
+      <h2>Dashboard</h2>
+
+      <div class="cards">
+        <div class="card"><h3>Users</h3><p>150</p></div>
+        <div class="card"><h3>Projects</h3><p>25</p></div>
+        <div class="card"><h3>Tasks</h3><p>80</p></div>
+      </div>
+
+      <table>
+        <tr><th>ID</th><th>Name</th><th>Role</th><th>Status</th></tr>
+
+        <tr><td>1</td><td>Rahul</td><td>Developer</td><td>Active</td></tr>
+        <tr><td>2</td><td>Aman</td><td>Tester</td><td>Completed</td></tr>
+        <tr><td>3</td><td>Neha</td><td>Manager</td><td>Active</td></tr>
+        <tr><td>4</td><td>Priya</td><td>Designer</td><td>Active</td></tr>
+        <tr><td>5</td><td>Rohit</td><td>Developer</td><td>Completed</td></tr>
+        <tr><td>6</td><td>Karan</td><td>Tester</td><td>Active</td></tr>
+        <tr><td>7</td><td>Simran</td><td>HR</td><td>Active</td></tr>
+        <tr><td>8</td><td>Arjun</td><td>Developer</td><td>Completed</td></tr>
+
+      </table>
+    </div>
+
+    <!-- Timesheet -->
+    <div id="timesheet" class="section">
+      <h2>Add Timesheet</h2>
+      <div class="form-box">
+        <input placeholder="Project Name">
+        <input placeholder="Task">
+        <input type="number" placeholder="Hours Worked">
+        <input type="date">
+        <textarea placeholder="Description"></textarea>
+
+        <div class="btn-group">
+          <button class="btn submit">Submit</button>
+          <button class="btn cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leave -->
+    <div id="leave" class="section">
+      <h2>Apply Leave</h2>
+      <div class="form-box">
+        <select><option>Select Leave Type</option></select>
+        <input type="date">
+        <input type="date">
+        <textarea placeholder="Reason"></textarea>
+
+        <div class="btn-group">
+          <button class="btn submit">Submit</button>
+          <button class="btn cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Calendar -->
+    <div id="calendar" class="section">
+      <h2>Calendar</h2>
+
+      <div class="calendar">
+        <div class="calendar-header">
+          <button onclick="changeMonth(-1)">Prev</button>
+          <h3 id="monthYear"></h3>
+          <button onclick="changeMonth(1)">Next</button>
+        </div>
+
+        <div class="days">
+          <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div>
+          <div>Thu</div><div>Fri</div><div>Sat</div>
+        </div>
+
+        <div class="dates" id="dates"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function show(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* Calendar JS */
+let date = new Date();
+
+function renderCalendar(){
+  const monthYear = document.getElementById("monthYear");
+  const dates = document.getElementById("dates");
+
+  dates.innerHTML = "";
+
+  const month = date.getMonth();
+  const year = date.getFullYear();
+
+  monthYear.innerText = date.toLocaleString('default',{month:'long'})+" "+year;
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const lastDate = new Date(year, month+1, 0).getDate();
+
+  for(let i=0;i<firstDay;i++){
+    dates.innerHTML += "<div></div>";
+  }
+
+  for(let i=1;i<=lastDate;i++){
+    dates.innerHTML += "<div>"+i+"</div>";
+  }
+}
+
+function changeMonth(val){
+  date.setMonth(date.getMonth()+val);
+  renderCalendar();
+}
+
+renderCalendar();
+</script>
+
+</body>
+</html>
